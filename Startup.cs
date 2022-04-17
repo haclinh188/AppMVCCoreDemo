@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -28,6 +29,21 @@ namespace Demo.AspNetCore.MVC.RazorPage
             services.AddControllersWithViews();
             // Them cau hinh razorpage  (demo them)
             services.AddRazorPages();
+
+            //Add config RazorViewEngine
+            services.Configure<RazorViewEngineOptions>(option =>
+            {
+
+                //MyViews/Controller/ActionView (cshtml)
+                //{0} Action
+                //{1} Tên controller
+                //{2} Ten Area
+
+                // Ví dụ muốn dùng cho Views  thì viết như sau 
+                // option.ViewLocationFormats.Add("/Views/{1}/{0}.cshtml"); hoặc cach viet phia duoi theo phần mở rộng view   ( Tìm tất cả trong Views)
+                option.ViewLocationFormats.Add("/Views/{1}/{0}" + RazorViewEngine.ViewExtension);
+
+            });
 
         }
 
